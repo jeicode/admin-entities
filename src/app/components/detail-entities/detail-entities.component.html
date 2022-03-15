@@ -1,0 +1,84 @@
+
+
+<div class="mt-4" *ngIf="entitiesSelected.length > 0">
+    <hr>
+    <h2 class="mt-4 text-center ">Results</h2>
+    <div class="save mr-1" style="text-align: right;">
+        <button class="btn btn-sm btn-success" (click)="saveChanges('Successfully saved')">Save changes</button>
+    </div>
+    
+    <table class="table mt-4 table-striped  table-responsive table-hover">
+        <caption>List of entitites</caption>
+        <thead class="thead-light" style="border: none;">
+            <tr class="h6">
+                <th scope="col">Id</th>
+                <th scope="col">Logo</th>
+                <th scope="col">Name</th>
+                <th scope="col">Number ID</th>
+                <th scope="col">Exp Date</th>
+                <th scope="col">Contact Name</th>
+                <th scope="col">Contact Email</th>
+                <th scope="col">Address</th>
+                <th scope="col">Actions</th>
+    
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of entitiesSelected" class="h6">
+                <th> {{e?.entityId }}</th>
+                <td> <img [src]="e?.logo | image"  alt="logo" height="60" width="60"></td>
+                <td>  
+                    <input  type="text" 
+                            class="form-control"
+                            #name
+                            (keyup)="e.name = name.value"
+                            [value]="e.name"/>
+                </td>
+                <td> 
+                    <input type="text"
+                            class="form-control"
+                            #idNumber
+                            (keyup)="e.identificationNumber = idNumber.value"
+                            [value]="e?.identificationNumber"> 
+                </td>
+                <td>
+                    <input type="text"
+                            class="form-control"
+                            #expDate
+                            (keyup)="e.expirationDate = expDate.value"
+                            [value]="e?.expirationDate"> 
+                </td>
+                
+                <td> 
+                    <input type="text"
+                            class="form-control"
+                            #contactName
+                            (keyup)="e.contactName = contactName.value"
+                            [value]="e?.contactName"> 
+                </td>
+    
+                <td> 
+                    <input type="text"
+                            class="form-control"
+                            #contactEmail
+                            (keyup)="e.contactMail = contactEmail.value"
+                            [value]="e?.contactMail"> 
+                    
+                </td>
+                <td> 
+                    <input type="text"
+                            class="form-control"
+                            #ipAddress
+                            (keyup)="e.ipAddress = ipAddress.value"
+                            [value]="e?.ipAddress">  
+                </td>
+    
+                <td>
+                    <button class="btn btn-sm btn-danger"
+                            (click)="removeItemLocalStg(e.entityId)">Delete</button>
+                </td>
+            </tr>
+    
+        </tbody>
+    </table>
+</div>

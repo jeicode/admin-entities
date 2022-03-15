@@ -1,0 +1,51 @@
+<div class="container text-center mt-4" *ngIf="entities.length > 0">
+  <h1 class="title">List entities</h1>
+
+  <!--card-->
+  <div class="d-flex justify-content-center flex-wrap mt-4 gap-4">
+    <mat-card *ngFor="let e of entities" (click)="onSelectCard(e)" 
+              class="card" style="width: 20rem;"
+              [ngClass]="{'card-selected': e?.selected}">
+
+      <span class="selection" [ngClass]="{'opacity-100': e?.selected}">
+        <mat-icon>check_circle</mat-icon>
+      </span>
+
+      <mat-card-header>
+        <img [src]="e?.logo | image" alt="logo" width="100" height="80">
+        <mat-card-title class="desc">{{ e?.name }} </mat-card-title>
+        <mat-card-subtitle class="desc"> {{e?.identificationNumber }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+
+  <!--confirm selected-->
+  <div class="container-fluid mt-4  ">
+
+    <!--error message-->
+    <div class="alert alert-danger h5" role="alert" [ngClass]="{'d-none': !error}">
+      You sholud select almost one item
+    </div>
+    
+    <button class="btn btn-primary h4 btn-finish-selected" 
+            (click)="finishSelected()">
+            Select items  
+    </button>
+
+  </div>  
+</div>
+
+<div class="container-fluid">
+  <app-detail-entities  [entitiesSelected]="entitiesSelected"
+                        [noSelectedEntities]="noSelectedEntities"
+                        (emitEvent)="onChange($event)" >
+  </app-detail-entities>
+</div>
+
+<div class="container error-msg mt-4" *ngIf="showErrorMsg">
+  <h1 class="h1">Apparently there was an error</h1>
+  <div class="alert alert-danger" role="alert">
+    There was a problem loading the information, please contact the administrator :(
+  </div>
+</div>
